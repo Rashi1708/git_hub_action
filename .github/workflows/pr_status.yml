@@ -20,4 +20,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: ${{ github.event.pull_request.number }}
+        run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
+        
+      - name: ither way
+        run: echo ::set-env name=PULL_NUMBER::$(echo "$GITHUB_REF" | awk -F / '{print $3}')
