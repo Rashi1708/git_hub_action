@@ -5,6 +5,9 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   pull_request:
     branches: [ main ]
+    
+env: 
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -21,6 +24,9 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
+      
+      - name: print pr from above step
+        run : ${{ steps.pr.outputs.pull_request_number }}
         
       - name: ither way
-        run: echo ::set-env name=PULL_NUMBER::$(echo "$GITHUB_REF" | awk -F / '{print $3}')
+        run: echo ::set-output name=PULL_NUMBER::$(echo "$GITHUB_REF" | awk -F / '{print $3}')
