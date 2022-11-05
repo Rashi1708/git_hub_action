@@ -3,13 +3,14 @@ name: CI
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  pull_request:
-    branches: [ main ]
+  pull_request_review:
+    branches: [ submitted,dismissed,edited ]
     
 env: 
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
-
+permissions:
+  pull-requests: read|write|none
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -41,5 +42,5 @@ jobs:
 #         run : ${{ steps.pr.outputs.pull_request_number }}
         run:  echo "${{ env.PULL_NUMBER }}"
         
-#       - name: git ref
-#         run: echo "${{GITHUB_REF}}"
+      - name: git ref
+        run: echo "$(echo "$GITHUB_REF")"
