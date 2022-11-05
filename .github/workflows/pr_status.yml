@@ -41,5 +41,5 @@ jobs:
 #         run : ${{ steps.pr.outputs.pull_request_number }}
         run:  echo "${{ env.PULL_NUMBER }}"
         
-      - name: git ref
-        run: echo "${{GITHUB_REF}}"
+#       - name: git ref
+#         run: echo "${{GITHUB_REF}}"
